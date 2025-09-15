@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    
+    <!-- Limpieza de secuencias -->
+    <changeSet id="01a-clean-sequences" author="developer" runAlways="true" dbms="oracle">
+        <sqlFile path="../sql/01a-clean-sequences.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"
+                splitStatements="false"/>
+    </changeSet>
+    
+    <!-- Limpieza de colas -->
+    <changeSet id="01b-clean-queues" author="developer" runAlways="true" dbms="oracle">
+        <sqlFile path="../sql/01b-clean-queues.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"
+                splitStatements="false"/>
+    </changeSet>
+    
+    <!-- Limpieza de tablas -->
+    <changeSet id="01c-clean-tables" author="developer" runAlways="true" dbms="oracle">
+        <sqlFile path="../sql/01c-clean-tables.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"
+                splitStatements="false"/>
+    </changeSet>
+    
+    <!-- Crear tablas -->
+    <changeSet id="02-create-tables" author="developer" dbms="oracle">
+        <sqlFile path="../sql/02-create-tables.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"/>
+    </changeSet>
+    
+    <!-- Crear secuencias -->
+    <changeSet id="03-create-sequences" author="developer" dbms="oracle">
+        <sqlFile path="../sql/03-create-sequences.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"/>
+    </changeSet>
+    
+    <!-- Crear tipos -->
+    <changeSet id="04-create-types" author="developer" dbms="oracle">
+        <sqlFile path="../sql/04-create-types.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"
+                splitStatements="false"/>
+    </changeSet>
+    
+    <!-- Crear objetos AQ -->
+    <changeSet id="05-create-aq" author="developer" dbms="oracle">
+        <sqlFile path="../sql/05-create-aq.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"
+                splitStatements="false"/>
+    </changeSet>
+    
+    <!-- Insertar datos de prueba -->
+    <changeSet id="06-insert-test-data" author="developer" dbms="oracle">
+        <sqlFile path="../sql/06-insert-test-data.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"/>
+    </changeSet>
+    
+</databaseChangeLog>

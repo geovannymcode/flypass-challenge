@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    
+    <!-- Verificar que las tablas existan antes de crear índices -->
+    <changeSet id="07-create-indexes" author="developer" dbms="oracle">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="PASOS_PEAJES_PENDIENTES"/>
+            <tableExists tableName="VEHICULOS_TAG"/>
+            <tableExists tableName="MEMBRESIAS_CLIENTE"/>
+            <tableExists tableName="TRANSACCIONES"/>
+        </preConditions>
+        <sqlFile path="../sql/11-create-indexes.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"/>
+    </changeSet>
+    
+    <!-- Especificación del paquete PKG_PROCESOS_FLYPASS -->
+    <changeSet id="08-pkg-procesos-spec" author="developer" dbms="oracle">
+        <sqlFile path="../sql/07-pkg-procesos-spec.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"
+                splitStatements="false"/>
+    </changeSet>
+    
+    <!-- Cuerpo del paquete PKG_PROCESOS_FLYPASS -->
+    <changeSet id="09-pkg-procesos-body" author="developer" dbms="oracle">
+        <sqlFile path="../sql/08-pkg-procesos-body.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"
+                splitStatements="false"/>
+    </changeSet>
+    
+    <!-- Especificación del paquete PKG_NOTIFICACIONES_CONSUMER -->
+    <changeSet id="10-pkg-notificaciones-spec" author="developer" dbms="oracle">
+        <sqlFile path="../sql/09-pkg-notificaciones-spec.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"
+                splitStatements="false"/>
+    </changeSet>
+    
+    <!-- Cuerpo del paquete PKG_NOTIFICACIONES_CONSUMER -->
+    <changeSet id="11-pkg-notificaciones-body" author="developer" dbms="oracle">
+        <sqlFile path="../sql/10-pkg-notificaciones-body.sql" 
+                relativeToChangelogFile="true" 
+                stripComments="true"
+                splitStatements="false"/>
+    </changeSet>
+    
+</databaseChangeLog>

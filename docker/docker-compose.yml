@@ -1,0 +1,40 @@
+services:
+  oracle:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: oracle-xe
+    environment:
+      - ORACLE_PASSWORD=oracle
+      - APP_USER=flypass
+      - APP_USER_PASSWORD=flypass
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "sqlplus", "-L", "sys/oracle@//localhost:1521/XEPDB1 as sysdba", "exit"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  liquibase:
+    image: liquibase/liquibase:4.20
+    depends_on:
+      oracle:
+        condition: service_healthy
+    # 👇 Montamos la RAÍZ del repo en /workspace dentro del contenedor
+    volumes:
+      - ..:/workspace
+      - ../ojdbc8.jar:/liquibase/lib/ojdbc8.jar
+    # 👇 Nos paramos directo en la carpeta que tiene los changelogs
+    working_dir: /workspace/liquibase-flypass
+    # 👇 Rutas relativas (porque working_dir ya está en liquibase-flypass)
+    command: >
+      --url=jdbc:oracle:thin:@oracle:1521/XEPDB1
+      --username=flypass
+      --password=flypass
+      --driver=oracle.jdbc.OracleDriver
+      --changelog-file=db.changelog-master.xml
+      update
+
+volumes:
+  oracle-data:

@@ -1,0 +1,5 @@
+-- Este script debe ejecutarse como SYS o SYSTEM
+GRANT EXECUTE ON DBMS_AQADM TO flypass;
+GRANT AQ_ADMINISTRATOR_ROLE TO flypass;
+GRANT EXECUTE ON DBMS_AQ TO flypass;
+GRANT CREATE TYPE TO flypass;
